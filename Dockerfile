@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 
 # ----- target ----- #
 # get source
-RUN git clone https://github.com/libxmp/libxmp.git && cd libxmp \
+RUN git clone https://github.com/mahaloz/libxmp.git && cd libxmp \
     export CC=clang && \
     autoconf; ./configure --enable-static && \
     make -j3 && \
