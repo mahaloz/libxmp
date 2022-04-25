@@ -1,5 +1,5 @@
 project: libxmp
-target: fuzzme
+target: xmp_audio
 
 cmds:
-  - cmd: /fuzzme
+  - cmd: /fuzz_xmp_audio

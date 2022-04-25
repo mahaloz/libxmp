@@ -5,19 +5,13 @@ RUN apt-get update && apt-get install -y sudo sshfs bsdutils python3-dev python-
     libpq-dev pkg-config zlib1g-dev libtool libtool-bin wget automake autoconf coreutils bison libacl1-dev \
     llvm clang \
     build-essential git \
-    libffi-dev cmake libreadline-dev libtool netcat net-tools 
+    libffi-dev cmake libreadline-dev libtool netcat net-tools vim
 
-
-# ----- mahaloz stuff ----- #
-USER root
-RUN apt-get update && apt-get install -y \
-    tmux \
-    xclip \
-    vim
 
 # ----- target ----- #
 # get source
-RUN git clone https://github.com/libxmp/libxmp.git && cd libxmp \
+COPY . /libxmp
+RUN cd /libxmp && \
     export CC=clang && \
     autoconf; ./configure --enable-static && \
     make -j3 && \
@@ -31,7 +25,6 @@ RUN cd /libxmp/test-dev && \
 
 # fix paths and fuzz target
 RUN ln -s /usr/local/lib/libxmp.so /lib/x86_64-linux-gnu/libxmp.so.4  && \
-    cp /libxmp/test-dev/a.out /fuzzme && \
+    cp /libxmp/test-dev/a.out /fuzz_xmp_audio && \
     cd / 
-
 
