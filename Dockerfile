@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.04 as builder 
 
 USER root 
 RUN apt-get update && apt-get install -y sudo sshfs bsdutils python3-dev python-pip \
@@ -28,3 +28,6 @@ RUN ln -s /usr/local/lib/libxmp.so /lib/x86_64-linux-gnu/libxmp.so.4  && \
     cp /libxmp/test-dev/a.out /fuzz_xmp_audio && \
     cd / 
 
+FROM ubuntu:18.04
+
+COPY --from=builder /fuzz_xmp_audio /
