@@ -30,4 +30,5 @@ RUN ln -s /usr/local/lib/libxmp.so /lib/x86_64-linux-gnu/libxmp.so.4  && \
 
 FROM ubuntu:18.04
 
+COPY --from=builder /usr/local/lib/libxmp.so /lib/x86_64-linux-gnu/libxmp.so.4
 COPY --from=builder /fuzz_xmp_audio /
